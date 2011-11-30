@@ -1,4 +1,4 @@
-# ProFrom Form Select for ExpressionEngine 2
+# ProForm Form Select for ExpressionEngine 2
 
 ### Allows you to select from your ProForm Forms. Can be used in a Matrix Fieldtype or as a standalone.
 
