@@ -106,6 +106,51 @@ class Dt_proform_select_ft extends EE_Fieldtype {
 
 	// --------------------------------------------------------------------
 
+	/**
+	* Displays the field in Content Elements (BACKEND)
+	*
+	* @param	mixed 	$elem_data 	data stored in the element
+	* @return	string 				HTML markup
+	*/
+	function display_element($elem_data)
+	{
+		// Get fields from DB
+		$query = $this->EE->db->query("SELECT form_label AS label, form_name AS name FROM exp_proform_forms ORDER BY name ASC");
+
+		// Generate drop down
+		$options = array('' => 'Please Select...');
+		foreach ($query->result_array() AS $row)
+		{
+			$options[$row['name']] = $row['label'];
+		}
+
+		$field = array(
+			'name'		=> $this->field_name,
+			'value'		=> $elem_data,
+		);
+
+		$markup	= form_dropdown($field['name'], $options, $field['value']);
+
+		return $markup;
+	}
+	
+	// --------------------------------------------------------------------
+
+	/**
+	* Used to render the Content Elements data (contents) on the front-end.
+	*
+	* @param 	mixed 	$data 		data stored in the element
+	* @param 	array 	$params 	params taken from the used tag
+	* @param 	string 	$tagdata 	HTML markup replaced w/ output
+	* @return 	string 				HTML output
+	*/
+	function replace_element_tag($elem_data, $params = array(), $tagdata)
+	{
+		$this->display_field($elem_data);
+	}
+	
+	// --------------------------------------------------------------------
+
 }
 
 /* End of file ft.dt_proform_select.php */
